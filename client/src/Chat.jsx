@@ -31,9 +31,16 @@ function Message(message, roomId, user, datetime){
     }
 
     useEffect(()=>{
+      let roomId = sessionStorage.getItem('roomId')
+      let uname = sessionStorage.getItem('uname')
+      console.log(roomId + " " + uname)
+      if(roomId && uname){
+        socket.current.emit('joinroom', {roomId, uname})
+      }
       socket.current.on('roomId', ({roomId, uname}) => {
         setRoomId(roomId)
         setUname(uname)
+        console.log(roomId + " " + uname)
       })
       socket.current.on('recieved_messages', (message) => {
         setMessages([...messages, message])
@@ -47,19 +54,19 @@ function Message(message, roomId, user, datetime){
         <div className='h-4/5 w-2/5 p-4 overflow-auto'>
           <ul className='bg-local'>
             {messages.map((value, index) => <li key={index} className='m-3'>
-                <div className='w-full'>
-                  <div className={`flex relative  ${value.user === uname?'text-right bg-zinc-500':'text-left bg-zinc-600'}`}>
-                    <p className={`mb-3 w-full text-lg p-2 rounded-sm`}>{value.message}</p>
-                    <p className='text-sm absolute bottom-0 right-0 pr-2'>{new Date(value.datetime).toTimeString().split(' ')[0].slice(0, 5)}</p>
+                <div className={`w-full border rounded-xl ${value.user === uname?'text-right bg-zinc-500':'text-left bg-zinc-600'}`}>
+                  <div className={`flex flex-col p-2 gap-0`}>
+                    <p className={`text-xs`}>{value.user === uname?"You":value.user}</p>
+                    <p className={`w-full text-lg `}>{value.message}</p>
+                    <p className='text-xs'>{new Date(value.datetime).toTimeString().split(' ')[0].slice(0, 5)}</p>
                   </div>
-                  
                 </div>
               </li>)}
           </ul>
         </div>
       
-        <form className='fixed bottom-0 p-4 text-black'>
-          <input type="text" placeholder="Enter Message" value={value} onChange={(e) => setValue(e.target.value)} required/>
+        <form className='fixed bottom-0 p-4 font-sans text-black'>
+          <input type="text" className="" placeholder="Enter Message" value={value} onChange={(e) => setValue(e.target.value)} required/>
           <button className='text-white' onClick={sendMessage}>Send</button>
         </form>
       </div>

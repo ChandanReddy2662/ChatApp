@@ -6,14 +6,19 @@ import Chat from './Chat';
 
 const socket = io('http://localhost:3001');
 
+function onload(){
+  let roomId = sessionStorage.getItem('roomId')
+  let uname = sessionStorage.getItem('uname')
+  console.log(roomId + " " + uname)
+  socket.current.emit('joinroom', {roomId, uname})
+}
 
-function Join({ socket }) {
+function Join({ socket, onload }) {
   const [roomId, setRoomId] = useState('');
   const [uname, setUname] = useState('');
   const navigate = useNavigate();
 
   function joinRoom() {
-  
     if(roomId !== '' && uname !== ''){
     sessionStorage.setItem("roomId", roomId)
     sessionStorage.setItem("uname", uname)
@@ -23,7 +28,7 @@ function Join({ socket }) {
   }
 
   return (
-    <div className='joinroom h-screen w-full flex flex-col gap-6 justify-center items-center bg-slate-800 text-xl'>
+    <div className='joinroom h-screen w-full flex flex-col gap-6 justify-center items-center bg-slate-800 text-xl' onLoad={onload}>
       <form className='flex flex-col gap-6 justify-center items-center border p-6 rounded-xl'>
         <input type='text' value={uname} className='p-4 rounded-xl' onChange={e => setUname(e.target.value)} placeholder='username' required/>      
         <input type='text' value={roomId} className='p-4 rounded-xl' onChange={(e) => setRoomId(e.target.value)} placeholder='Enter  Room ID' required/>
@@ -39,7 +44,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Join socket={socketRef} />} />
+        <Route path="/" element={<Join socket={socketRef} onLoad={onload}/>} />
         <Route path='/chat/:id' element={<Chat socket={socketRef}/>} />
       </Routes>
     </BrowserRouter>

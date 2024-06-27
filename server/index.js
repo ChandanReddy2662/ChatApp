@@ -4,12 +4,13 @@ const http = require('http');
 const cors = require('cors')
 const app = express()
 const admin = require("firebase-admin");
-const serviceAccount = require("./api/chatapp-25360-firebase-adminsdk-27m7f-e517b4feaa.json");
+const serviceAccount = require("./api/chatapp-25360-firebase-adminsdk-27m7f-90b36307e1.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://chatapp-25360-default-rtdb.firebaseio.com"
 });
+
 const db = admin.database()
 
 app.use(cors())
@@ -21,9 +22,9 @@ const io = new Server(server, {
     }
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-})
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html')
+// })
 
 
 async function addUser(roomId, uname){
