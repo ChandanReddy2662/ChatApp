@@ -5,7 +5,7 @@ const cors = require('cors')
 const app = express()
 const admin = require("firebase-admin");
 const serviceAccount = require("./api/chatapp-25360-firebase-adminsdk-27m7f-90b36307e1.json");
-
+require('dotenv').config()
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://chatapp-25360-default-rtdb.firebaseio.com"
@@ -79,7 +79,7 @@ io.on('connection', (socket) => {
 })
 
 
-server.listen(process.env.FRONT_END_URI, () => {
-    console.log('SERVER RUNNING ON 3001')
+server.listen(process.env.PORT, () => {
+    console.log('SERVER RUNNING ON ' + process.env.PORT)
 })
 
