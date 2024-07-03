@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import io from 'socket.io-client';
 import Chat from './Chat';
-const socket = io("http://localhost:3001");
+const socket = io(process.env.REACT_APP_API_KEY);
 
 function onload(){
   let roomId = sessionStorage.getItem('roomId')
