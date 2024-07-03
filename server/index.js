@@ -17,7 +17,7 @@ app.use(cors())
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.FRONT_END_URI,
         methods: ['GET', 'POST']
     }
 });
@@ -79,7 +79,7 @@ io.on('connection', (socket) => {
 })
 
 
-server.listen(3001, () => {
+server.listen(process.env.FRONT_END_URI, () => {
     console.log('SERVER RUNNING ON 3001')
 })
 
