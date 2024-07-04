@@ -4,6 +4,7 @@ import './App.css';
 import io from 'socket.io-client';
 import Chat from './Chat';
 const socket = io(process.env.REACT_APP_API_KEY);
+console.log(process.env.REACT_APP_API_KEY)
 
 function onload(){
   let roomId = sessionStorage.getItem('roomId')

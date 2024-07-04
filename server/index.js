@@ -27,6 +27,7 @@ const db = admin.database()
 
 app.use(cors())
 const server = http.createServer(app);
+console.log(process.env.FRONT_END_URI)
 const io = new Server(server, {
     cors: {
         origin: process.env.FRONT_END_URI,
