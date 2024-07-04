@@ -25,20 +25,13 @@ admin.initializeApp({
 
 const db = admin.database()
 
-app.use(cors({
-    origin: process.env.FRONT_END_URI,
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true
-}))
+app.use(cors())
 const server = http.createServer(app);
 console.log(process.env.FRONT_END_URI)
 const io = new Server(server, {
     cors: {
         origin: process.env.FRONT_END_URI,
-        methods: ['GET', 'POST'],
-        allowedHeaders: ['Content-Type'],
-        credentials: true
+        methods: ['GET', 'POST']
     }
 });
 
