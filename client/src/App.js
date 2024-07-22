@@ -19,7 +19,6 @@ function Join({ socket, onload }) {
   const navigate = useNavigate();
 
   async function joinRoom() {
-    // await fetch('https://api.render.com/deploy/srv-cq2pnp2ju9rs7391qsgg?key=oXduId5Q3A8')
     if(roomId !== '' && uname !== ''){
       sessionStorage.setItem("roomId", roomId)
       sessionStorage.setItem("uname", uname)
