@@ -18,11 +18,12 @@ function Join({ socket, onload }) {
   const [uname, setUname] = useState('');
   const navigate = useNavigate();
 
-  function joinRoom() {
+  async function joinRoom() {
+    await fetch('https://api.render.com/deploy/srv-cq2pnp2ju9rs7391qsgg?key=oXduId5Q3A8')
     if(roomId !== '' && uname !== ''){
-    sessionStorage.setItem("roomId", roomId)
-    sessionStorage.setItem("uname", uname)
-    socket.current.emit('joinRoom', {roomId, uname});
+      sessionStorage.setItem("roomId", roomId)
+      sessionStorage.setItem("uname", uname)
+      socket.current.emit('joinRoom', {roomId, uname});
       navigate(`/chat/${roomId}`);
     }
   }

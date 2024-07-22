@@ -53,7 +53,6 @@ async function addUser(roomId, uname){
 
 
 io.on('connection', (socket) => {
-        
     socket.on('joinRoom', async ({roomId, uname})=>{
         socket.join(roomId)
         console.log('joined room: ', roomId, uname)
